@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Loto Generator</title>
+  <meta name="Loto Generator" content="Vanilla LotoGenerator">
+  <meta name="Ljubomir Sinadinovski" content="LotoGenerator">
+</head>
+
+<body>
+	<input style='width: 300px' type="number" id="inputScope" placeholder="Insert max possible number > 0"/>
+
+	<br/>
+	<br/>
+
+	<input style='width: 520px' type="number" id="inputAmount" placeholder="Insert amount of chosen loto numbers > 0 and not bigger from max number above"/>
+
+	<br/>
+	<br/>
+
+	<button id="btn-generate">Generate</button>
+
+	<br/>
+
+	<h1 id="lotoText">NOT WORKING!</h1>
+  <script>
+
+	var scopeOfLotoNumbersElement = document.getElementById('inputScope');
+	var amountOfLotoNumbersElement = document.getElementById('inputAmount');
+	document.addEventListener('click', function (event) {
+		// Log the clicked element in the console
+		//console.log(event.target);
+
+		// If the clicked element doesn't have the right selector, bail
+		if (!event.target.matches('#btn-generate') ) return;
+
+		// if the input number is invalud bail again
+		var scopeOfLotoNumbers = parseInt(scopeOfLotoNumbersElement.value);
+		var amountOfLotoNumbers = parseInt(amountOfLotoNumbersElement.value);
+		console.log(scopeOfLotoNumbers);
+		console.log(amountOfLotoNumbers)
+		if (!scopeOfLotoNumbers || !amountOfLotoNumbers || amountOfLotoNumbers <= 0 || scopeOfLotoNumbers <= 0 || scopeOfLotoNumbers < amountOfLotoNumbers) {
+			document.getElementById('lotoText').innerHTML='Error in input fields';
+			return;	
+		} 
+
+		// Don't follow the link
+		event.preventDefault();
+
+		var numberSet = new Set();
+		var resultLoto;
+		while (numberSet.size !== amountOfLotoNumbers) {
+			numberSet.add((Math.trunc(scopeOfLotoNumbers * Math.random()) + 1));
+			resultLoto = Array.from(numberSet).join(' ');
+		}
+		document.getElementById('lotoText').innerHTML=resultLoto;
+
+	}, false);
+  	
+  </script>
+</body>
+</html>
